@@ -7,6 +7,9 @@
                  [ring "1.6.3"]
                  [environ "1.1.0"]]
   ;; :main hieroglyphs.core
+  :min-lein-version "2.0.0"
+  :plugins [[environ/environ.lein "0.3.1"]]
+  :hooks [environ.leiningen.hooks]
   :java-source-paths ["src/java", "test/java"]
   :resource-paths ["resources/jsesh-6.5.5.jar", "resources/jseshGlyphs-6.5.5.jar",
                    "resources/java-cup-11b-runtime.jar", "resources/java-cup-11b.jar",
