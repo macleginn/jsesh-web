@@ -2,6 +2,7 @@
   (:require [ring.adapter.jetty :as jetty]
             [clojure.pprint :as pp]
             [ring.middleware.params :as pars]
+            [ring.middleware.cors :refer [wrap-cors]]
             [environ.core :refer [env]])
   (:gen-class))
 
@@ -30,7 +31,7 @@
   "A web app for hieroglyph visualisation"
   [& [port-number]]
   (let [port-number (Integer. (or port-number (env :port) 5000))]
-    (jetty/run-jetty (pars/wrap-params process-request)
+    (jetty/run-jetty (wrap-cors (pars/wrap-params process-request) #".*")
                      {:port (Integer. port-number)}))
   )
   

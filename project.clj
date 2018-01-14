@@ -5,6 +5,7 @@
             :url "https://www.gnu.org/licenses/gpl-3.0.en.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring "1.6.3"]
+                 [jumblerg/ring.middleware.cors "1.0.1"]
                  [environ "1.1.0"]
                  [jsesh/jsesh "6.5.5"]
                  [jseshGlyphs/jseshGlyphs "6.5.5"]
