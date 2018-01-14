@@ -1,1 +1,1 @@
-web: java $JVM_OPTS -cp target/hierogplyphs-standalone.jar clojure.main -m hieroglyphs.web
+web: java $JVM_OPTS -cp target/hieroglyphs-standalone.jar clojure.main -m hieroglyphs.web
