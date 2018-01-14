@@ -2,7 +2,8 @@
   (:require [ring.adapter.jetty :as jetty]
             [clojure.pprint :as pp]
             [ring.middleware.params :as pars]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]])
+  (:gen-class))
 
 (:require 'JTestTransp)
 

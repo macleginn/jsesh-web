@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring "1.6.3"]
                  [environ "1.1.0"]]
-  ;; :main hieroglyphs.core
+  :main hieroglyphs.web
   :min-lein-version "2.0.0"
   :heroku {:app-name "pure-sierra-27254"}
   :plugins [[environ/environ.lein "0.3.1"]
@@ -15,4 +15,5 @@
   :java-source-paths ["src/java" "test/java"]
   :resource-paths ["resources/jsesh-6.5.5.jar" "resources/jseshGlyphs-6.5.5.jar" "resources/java-cup-11b-runtime.jar" "resources/java-cup-11b.jar" "resources/qenherkhopeshefUtils-6.5.5.jar"]
   :uberjar-name "hieroglyphs-standalone.jar"
-  :profiles {:production {:env {:production true}}})
+  :profiles {:production {:env {:production true}}
+             :uberjar {:aot :all}})
