@@ -24,7 +24,7 @@ import jsesh.mdcDisplayer.draw.*;
 import jsesh.mdc.*;
  
 public class JTestTransp {
-    public static BufferedImage buildImage(String mdcText, int cadratHeight, boolean SmallSignsCentered) throws MDCSyntaxError {
+    public static BufferedImage buildImage(String mdcText, int cadratHeight, boolean smallSignsCentered) throws MDCSyntaxError {
         // Create the drawing system:                
         MDCDrawingFacade drawing = new MDCDrawingFacade();
         // Change the scale, choosing the cadrat height in pixels.
@@ -36,7 +36,7 @@ public class JTestTransp {
        // pageLayout.setTopMargin(5);
 	    pageLayout.setLeftMargin(0);
         pageLayout.setTopMargin(0);
-		drawingSpecifications.setSmallSignsCentered(SmallSignsCentered);
+        drawingSpecifications.setSmallSignsCentered(smallSignsCentered);
         drawingSpecifications.setPageLayout(pageLayout);
         drawing.setDrawingSpecifications(drawingSpecifications);
 		
@@ -85,18 +85,36 @@ public class JTestTransp {
     	return Base64.getEncoder().encodeToString(imgBytes);
     }
 
-    public static String pipeline(String mdc, String cadratHeightInput, String SmallSignsCenteredInput) throws MDCSyntaxError, IOException {
-		int cadratHeight = 90; //default cadratHeight
-		boolean SmallSignsCentered = false; //default value of the SmallSignsCentered property
-		
-		if(cadratHeightInput != null && !cadratHeightInput.isEmpty() && cadratHeightInput.matches("\\d+")) {
-			 cadratHeight = Integer.valueOf(cadratHeightInput);
-		}
-		if(SmallSignsCenteredInput != null) {
-			 SmallSignsCentered = Boolean.valueOf(SmallSignsCenteredInput);
-		}
- 
-        BufferedImage img = buildImage(mdc, cadratHeight, SmallSignsCentered);
+    public static String pipeline(String mdc) throws MDCSyntaxError, IOException {
+        int cadratHeight = 90;
+        boolean smallSignsCentered = false;
+        BufferedImage img = buildImage(mdc, cadratHeight, smallSignsCentered);
+        Image image = makeColorTransparent(img, new Color(255, 255, 255));
+        BufferedImage transparent = imageToBufferedImage(image);
+        // File f = new File(args[0]);
+        return convertToBase64(transparent);
+    }
+
+    public static String pipeline(String mdc, int cadratHeight) throws MDCSyntaxError, IOException {
+        boolean smallSignsCentered = false;
+        BufferedImage img = buildImage(mdc, cadratHeight, smallSignsCentered);
+        Image image = makeColorTransparent(img, new Color(255, 255, 255));
+        BufferedImage transparent = imageToBufferedImage(image);
+        // File f = new File(args[0]);
+        return convertToBase64(transparent);
+    }
+
+    public static String pipeline(String mdc, boolean smallSignsCentered) throws MDCSyntaxError, IOException {
+        int cadratHeight = 90;
+        BufferedImage img = buildImage(mdc, cadratHeight, smallSignsCentered);
+        Image image = makeColorTransparent(img, new Color(255, 255, 255));
+        BufferedImage transparent = imageToBufferedImage(image);
+        // File f = new File(args[0]);
+        return convertToBase64(transparent);
+    }
+
+    public static String pipeline(String mdc, int cadratHeight, boolean smallSignsCentered) throws MDCSyntaxError, IOException {
+        BufferedImage img = buildImage(mdc, cadratHeight, smallSignsCentered);
         Image image = makeColorTransparent(img, new Color(255, 255, 255));
         BufferedImage transparent = imageToBufferedImage(image);
         // File f = new File(args[0]);
@@ -104,9 +122,8 @@ public class JTestTransp {
     }
 	
 	public static void main(String[] args) throws MDCSyntaxError, IOException {
-		// Create the picture, convert it to base64 and print to Stdout
-		String[] fullArgs = Arrays.copyOf(args, 3);
-		String imageString = pipeline(fullArgs[0], fullArgs[1], fullArgs[2]);
+		// Create the picture, convert it to base64 and print to Stdouе
+		String imageString = pipeline(args[0]);
 		System.out.println(imageString);
   }
 }
