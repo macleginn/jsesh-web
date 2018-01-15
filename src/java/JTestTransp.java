@@ -10,6 +10,7 @@
  
 import javax.imageio.ImageIO;
 import java.util.Base64;
+import java.util.Arrays;
 import java.io.*;
 import java.awt.*;
 import java.awt.image.* ;
@@ -104,7 +105,8 @@ public class JTestTransp {
 	
 	public static void main(String[] args) throws MDCSyntaxError, IOException {
 		// Create the picture, convert it to base64 and print to Stdout
-		String imageString = pipeline(args[0], args[1], args[2]);
+		String[] fullArgs = Arrays.copyOf(args, 3);
+		String imageString = pipeline(fullArgs[0], fullArgs[1], fullArgs[2]);
 		System.out.println(imageString);
   }
 }
