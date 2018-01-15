@@ -21,8 +21,7 @@
        :body "No transliteration provided"
        :headers { "Content-Type" "text/plain" }}
       {:status 200
-       :body (JTestTransp/pipeline ((:params request)
-                                    "mdc"))
+       :body (JTestTransp/pipeline ((:params request) "mdc") ((:params request) "height") ((:params request) "centered"))
        :headers { "Content-Type" "text/plain" }})
     )
   )
