@@ -23,11 +23,11 @@ import jsesh.mdcDisplayer.draw.*;
 import jsesh.mdc.*;
  
 public class JTestTransp {
-    public static BufferedImage buildImage(String mdcText) throws MDCSyntaxError {
+    public static BufferedImage buildImage(String mdcText, int cadratHeight, boolean smallSignsCentered) throws MDCSyntaxError {
         // Create the drawing system:                
         MDCDrawingFacade drawing = new MDCDrawingFacade();
         // Change the scale, choosing the cadrat height in pixels.
-        drawing.setCadratHeight(90);
+        drawing.setCadratHeight(cadratHeight);
         // Change a number of parameters 
         DrawingSpecification drawingSpecifications = new DrawingSpecificationsImplementation();
         PageLayout pageLayout= new PageLayout();
@@ -35,6 +35,7 @@ public class JTestTransp {
        // pageLayout.setTopMargin(5);
 	    pageLayout.setLeftMargin(0);
         pageLayout.setTopMargin(0);
+        drawingSpecifications.setSmallSignsCentered(smallSignsCentered);
         drawingSpecifications.setPageLayout(pageLayout);
         drawing.setDrawingSpecifications(drawingSpecifications);
         // Create the picture 
@@ -83,7 +84,35 @@ public class JTestTransp {
     }
 
     public static String pipeline(String mdc) throws MDCSyntaxError, IOException {
-        BufferedImage img = buildImage(mdc);
+        int cadratHeight = 90;
+        boolean smallSignsCentered = false;
+        BufferedImage img = buildImage(mdc, cadratHeight, smallSignsCentered);
+        Image image = makeColorTransparent(img, new Color(255, 255, 255));
+        BufferedImage transparent = imageToBufferedImage(image);
+        // File f = new File(args[0]);
+        return convertToBase64(transparent);
+    }
+
+    public static String pipeline(String mdc, int cadratHeight) throws MDCSyntaxError, IOException {
+        boolean smallSignsCentered = false;
+        BufferedImage img = buildImage(mdc, cadratHeight, smallSignsCentered);
+        Image image = makeColorTransparent(img, new Color(255, 255, 255));
+        BufferedImage transparent = imageToBufferedImage(image);
+        // File f = new File(args[0]);
+        return convertToBase64(transparent);
+    }
+
+    public static String pipeline(String mdc, boolean smallSignsCentered) throws MDCSyntaxError, IOException {
+        int cadratHeight = 90;
+        BufferedImage img = buildImage(mdc, cadratHeight, smallSignsCentered);
+        Image image = makeColorTransparent(img, new Color(255, 255, 255));
+        BufferedImage transparent = imageToBufferedImage(image);
+        // File f = new File(args[0]);
+        return convertToBase64(transparent);
+    }
+
+    public static String pipeline(String mdc, int cadratHeight, boolean smallSignsCentered) throws MDCSyntaxError, IOException {
+        BufferedImage img = buildImage(mdc, cadratHeight, smallSignsCentered);
         Image image = makeColorTransparent(img, new Color(255, 255, 255));
         BufferedImage transparent = imageToBufferedImage(image);
         // File f = new File(args[0]);

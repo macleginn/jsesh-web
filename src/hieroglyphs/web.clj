@@ -20,10 +20,14 @@
       {:status 500
        :body "No transliteration provided"
        :headers { "Content-Type" "text/plain" }}
-      {:status 200
-       :body (JTestTransp/pipeline ((:params request)
-                                    "mdc"))
-       :headers { "Content-Type" "text/plain" }})
+      (let [cadratHeight (Integer. (get (:params request) "height" "90"))]
+        (let [smallSignsCentered (Boolean. (get (:params request) "centered" "false"))]
+          {:status 200
+           :body (JTestTransp/pipeline ((:params request) "mdc")
+                                       cadratHeight
+                                       smallSignsCentered)
+           :headers { "Content-Type" "text/plain" }}))
+      )
     )
   )
 
