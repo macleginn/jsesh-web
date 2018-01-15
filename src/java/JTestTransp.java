@@ -10,6 +10,7 @@
  
 import javax.imageio.ImageIO;
 import java.util.Base64;
+import java.util.Arrays;
 import java.io.*;
 import java.awt.*;
 import java.awt.image.* ;
@@ -38,6 +39,7 @@ public class JTestTransp {
         drawingSpecifications.setSmallSignsCentered(smallSignsCentered);
         drawingSpecifications.setPageLayout(pageLayout);
         drawing.setDrawingSpecifications(drawingSpecifications);
+		
         // Create the picture 
        BufferedImage result = drawing.createImage(mdcText);
        return result;
@@ -120,7 +122,7 @@ public class JTestTransp {
     }
 	
 	public static void main(String[] args) throws MDCSyntaxError, IOException {
-		// Create the picture, convert it to base64 and print to Stdout
+		// Create the picture, convert it to base64 and print to Stdouе
 		String imageString = pipeline(args[0]);
 		System.out.println(imageString);
   }
